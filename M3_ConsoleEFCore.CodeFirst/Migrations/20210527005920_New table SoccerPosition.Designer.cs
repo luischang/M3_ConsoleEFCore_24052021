@@ -4,14 +4,16 @@ using M3_ConsoleEFCore.CodeFirst.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace M3_ConsoleEFCore.CodeFirst.Migrations
 {
     [DbContext(typeof(MundialDBContext))]
-    partial class MundialDBContextModelSnapshot : ModelSnapshot
+    [Migration("20210527005920_New table SoccerPosition")]
+    partial class NewtableSoccerPosition
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,12 +37,7 @@ namespace M3_ConsoleEFCore.CodeFirst.Migrations
                     b.Property<string>("FullName")
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<int>("SoccerPositionId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("SoccerPositionId");
 
                     b.ToTable("Player");
                 });
@@ -79,52 +76,6 @@ namespace M3_ConsoleEFCore.CodeFirst.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Team");
-                });
-
-            modelBuilder.Entity("PlayerTeam", b =>
-                {
-                    b.Property<int>("PlayerId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("TeamId")
-                        .HasColumnType("int");
-
-                    b.HasKey("PlayerId", "TeamId");
-
-                    b.HasIndex("TeamId");
-
-                    b.ToTable("PlayerTeam");
-                });
-
-            modelBuilder.Entity("M3_ConsoleEFCore.CodeFirst.Models.Player", b =>
-                {
-                    b.HasOne("M3_ConsoleEFCore.CodeFirst.Models.SoccerPosition", "SoccerPosition")
-                        .WithMany("Player")
-                        .HasForeignKey("SoccerPositionId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("SoccerPosition");
-                });
-
-            modelBuilder.Entity("PlayerTeam", b =>
-                {
-                    b.HasOne("M3_ConsoleEFCore.CodeFirst.Models.Player", null)
-                        .WithMany()
-                        .HasForeignKey("PlayerId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("M3_ConsoleEFCore.CodeFirst.Models.Team", null)
-                        .WithMany()
-                        .HasForeignKey("TeamId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("M3_ConsoleEFCore.CodeFirst.Models.SoccerPosition", b =>
-                {
-                    b.Navigation("Player");
                 });
 #pragma warning restore 612, 618
         }

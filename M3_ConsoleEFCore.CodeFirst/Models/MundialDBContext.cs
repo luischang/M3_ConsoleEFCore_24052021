@@ -29,5 +29,7 @@ namespace M3_ConsoleEFCore.CodeFirst.Models
 
         public virtual DbSet<Team> Team { get; set; }
 
+        public virtual DbSet<SoccerPosition> SoccerPosition { get; set; }
+
     }
 }
